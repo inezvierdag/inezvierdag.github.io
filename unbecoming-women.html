@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inez Vierdag | (Un)Becoming Women</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+</head>
+<body><nav>
+    <div class="nav-item"><a href="index.html">Home</a></div>
+    <div class="nav-item"><a href="about.html">About</a></div>
+</nav></body>
+
+<body class="project-page">
+
+
+<main class="split-layout">
+        
+<section class="text-column">
+    <h1 class="project-title"><em>(Un)</em>Becoming Women</h1>
+    
+    <div class="meta-data">
+        <p><strong>Medium:</strong> Multi-channel Video Installation</p>
+        <p><strong>Duration:</strong> 5:00 Loop</p>
+        
+        <br>
+        
+<div class="exhibition-history">
+            <p class="section-label">Exhibitions</p>
+            <p>2025 — <span class="ex-item fragment-link pair-trigger" data-target="media-1,media-2">Brutus Wild Summer of Art</span>, Rotterdam</p>
+            <p>2025 — <span class="fragment-link" data-target="media-5">The New Current</span>, Rotterdam</p>
+            <p>2025 — <span class="fragment-link" data-target="media-4">Palet Festival</span>, Amsterdam</p>
+        </div>
+    </div>
+
+    <div class="project-abstract">
+        <p>
+            <em>(Un)Becoming Women</em> is an immersive inquiry into identity within a postfeminist landscape. Centered on an octagonal maze of one-way mirrors, the installation creates a curated disorientation where the viewer’s reflection merges with the collective gaze.
+        </p>
+        <p>
+            As projected visuals track a slow descent into an uncanny aesthetic, an ominous surround-sound narrative echoes the relentless pursuit of unattainable ideals. 
+        </p>
+        <p class="abstract-footer">
+            Who are we, and who do we feel forced to become?
+        </p>
+    </div>
+</section>
+
+<section class="display-area" id="discovery-zone">
+    <div class="stack-container">
+        <img id="media-1" src="../assets/unbecoming1.jpg" class="stack-item">
+        <img id="media-2" src="../assets/unbecoming2.jpg" class="stack-item">
+        
+        <img id="media-3" src="../assets/unbecoming3.jpg" class="stack-item wide-media vivid" style="opacity: 1;">
+
+        <div id="media-4" class="stack-item video-wrapper">
+            <video autoplay muted loop playsinline src="../assets/unbecoming.mp4"></video>
+        </div>
+
+        <div id="media-5" class="stack-item vimeo-wrapper">
+            <iframe src="https://player.vimeo.com/video/910109046?autoplay=1&muted=1&loop=1&background=1" 
+                    frameborder="0" allow="autoplay; fullscreen"></iframe>
+        </div>
+    </div>
+</section>
+    </main>
+
+<script>
+    const items = document.querySelectorAll('.stack-item');
+    const links = document.querySelectorAll('.fragment-link');
+
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            const targetIds = link.getAttribute('data-target').split(',');
+            
+            items.forEach(i => {
+                if (!targetIds.includes(i.id) && !i.classList.contains('pinned')) {
+                    i.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
+                    i.style.opacity = "0.2"; 
+                    if (i.timer) clearTimeout(i.timer);
+                }
+            });
+
+            targetIds.forEach((id, index) => {
+                const el = document.getElementById(id.trim());
+                if (el) {
+                    el.classList.add('vivid');
+                    el.style.opacity = "1";
+
+                    if (targetIds.length > 1) {
+                        el.classList.add(index === 0 ? 'as-pair-1' : 'as-pair-2');
+                    } else {
+                        const ox = Math.floor(Math.random() * 40) - 20;
+                        const oy = Math.floor(Math.random() * 40) - 20;
+                        el.style.transform = `translate(${ox}px, ${oy}px)`;
+                    }
+
+                    if (el.timer) clearTimeout(el.timer);
+                    el.timer = setTimeout(() => {
+                        if (!el.classList.contains('pinned')) {
+                            el.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
+                            el.style.opacity = "0";
+                        }
+                    }, 10000);
+                }
+            });
+        });
+
+        link.addEventListener('click', (e) => {
+            const targetIds = link.getAttribute('data-target').split(',');
+            targetIds.forEach(id => {
+                const el = document.getElementById(id.trim());
+                if (el) {
+                    el.classList.toggle('pinned');
+                    el.style.opacity = "1";
+                    el.style.zIndex = el.classList.contains('pinned') ? "500" : "150";
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

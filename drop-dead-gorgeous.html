@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inez Vierdag | Drop Dead Gorgeous</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500&family=Source+Serif+4:ital,wght@0,300;0,400&display=swap" rel="stylesheet">
+</head>
+
+<body class="project-page">
+    <nav>
+        <div class="nav-item"><a href="index.html">Home</a></div>
+        <div class="nav-item"><a href="about.html">About</a></div>
+    </nav>
+
+    <main class="split-layout">
+        
+        <section class="text-column">
+            <h1 class="project-title"><em>Drop Dead</em> Gorgeous</h1>
+            
+            <div class="meta-data">
+                <p><strong>Medium:</strong> Video Installation</p>
+                <p><strong>Duration:</strong> 5:00</p>
+                
+                <br>
+                
+                <div class="exhibition-list">
+
+                    <div class="ex-item fragment-link" data-target="media-6">
+                        <span class="venue">Full Video</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-abstract">
+                <p>
+                    <em>Drop Dead Gorgeous</em> is a feminist manifesto disguised as a video installation—an invitation to introspection and a call to arms against the insidious "Girlboss" and "That Girl" trends. These cultural archetypes gaslight the subject into believing that worth is inextricably tied to productivity and conformity.
+                </p>
+                <p>
+                    The work explores a world where achievement becomes a performance, and validation a fleeting high from external systems that magnify and diminish in equal measure.
+                </p>
+                <p>
+                    By dismantling the capitalist agenda that defines worth through hustle, the installation questions the very authority that dictates our goals. It asks for a reclamation of agency: a world where ambition ignites from within, fueled by values we cultivate rather than trends we blindly follow.
+                </p>
+            </div>
+        </section>
+
+        <section class="display-area" id="discovery-zone">
+            <div class="stack-container">
+                
+                <img id="media-7" src="../assets/dropdeadgorgeous1.jpg" class="stack-item vivid" style="opacity: 1;">
+                
+                <div id="media-6" class="stack-item vimeo-wrapper-horizontal">
+                    <iframe 
+                        src="https://player.vimeo.com/video/791855427?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;background=1&amp;loop=1&amp;muted=1" 
+                        frameborder="0" 
+                        allow="autoplay; fullscreen; picture-in-picture" 
+                        style="width:100%; height:100%;" 
+                        title="Drop Dead Gorgeous">
+                    </iframe>
+                </div>
+
+            </div> <script src="https://player.vimeo.com/api/player.js"></script>
+        </section>
+    </main>
+
+    <script>
+        const items = document.querySelectorAll('.stack-item');
+        const links = document.querySelectorAll('.fragment-link');
+
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                const targetIds = link.getAttribute('data-target').split(',');
+                
+                // Reset other non-pinned items
+                items.forEach(i => {
+                    if (!targetIds.includes(i.id) && !i.classList.contains('pinned')) {
+                        i.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
+                        i.style.opacity = "0.4"; // Keep background slightly visible
+                        if (i.timer) clearTimeout(i.timer);
+                    }
+                });
+
+                // Trigger New Item(s)
+                targetIds.forEach((id, index) => {
+                    const el = document.getElementById(id.trim());
+                    if (el) {
+                        el.classList.add('vivid');
+                        el.style.opacity = "1";
+
+                        if (targetIds.length > 1) {
+                            el.classList.add(index === 0 ? 'as-pair-1' : 'as-pair-2');
+                        } else {
+                            const ox = Math.floor(Math.random() * 40) - 20;
+                            const oy = Math.floor(Math.random() * 40) - 20;
+                            el.style.transform = `translate(${ox}px, ${oy}px)`;
+                        }
+
+                        // Auto-fade timer
+                        if (el.timer) clearTimeout(el.timer);
+                        el.timer = setTimeout(() => {
+                            if (!el.classList.contains('pinned')) {
+                                el.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
+                                el.style.opacity = "0";
+                            }
+                        }, 10000);
+                    }
+                });
+            });
+
+            link.addEventListener('click', () => {
+                const targetIds = link.getAttribute('data-target').split(',');
+                targetIds.forEach(id => {
+                    const el = document.getElementById(id.trim());
+                    if (el) {
+                        el.classList.toggle('pinned');
+                        el.style.zIndex = el.classList.contains('pinned') ? "500" : "150";
+                        el.style.opacity = "1";
+                    }
+                });
+            });
+        });
+
+        // Click background to clear all
+        document.getElementById('discovery-zone').addEventListener('click', (e) => {
+            if (e.target.id === 'discovery-zone') {
+                items.forEach(i => {
+                    i.classList.remove('pinned', 'vivid', 'as-pair-1', 'as-pair-2');
+                    i.style.opacity = "0";
+                });
+            }
+        });
+    </script>
+</body>
+</html>

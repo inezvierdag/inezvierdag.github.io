@@ -1,0 +1,578 @@
+/* GLOBAL SETTINGS */
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #ffffff;
+    color: #000;
+    height: 100vh;
+    overflow: hidden;
+    padding: 60px;
+    cursor: default;
+}
+html, body {
+    overflow-y: auto; 
+    min-height: 100vh;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+a { text-decoration: none; cursor: pointer; }
+
+/* --- MAIN NAVIGATION (Unified) --- */
+nav,
+.project-page nav,
+.about-page nav {
+    font-family: 'Inter Tight', sans-serif !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 500;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 200;
+    background: none;
+    border: none;
+    color: #000;
+    gap: 0;
+}
+
+nav a,
+.project-page nav a,
+.about-page nav a {
+    font-family: 'Inter Tight', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    color: #000 !important;
+    background: none !important;
+    border: none !important;
+    text-decoration: none;
+    padding: 0;
+    transition: opacity 0.2s;
+}
+
+nav a:hover,
+.project-page nav a:hover,
+.about-page nav a:hover {
+    opacity: 0.7;
+}
+
+/* Remove .main-nav and .project-nav customizations to avoid conflicts */
+.main-nav, .main-nav .nav-item, .main-nav a, .project-nav { all: unset; }
+
+/* --- NAV ITEM SPACING & ALIGNMENT --- */
+.nav-item {
+    display: flex;
+    align-items: center;
+    flex: 1 1 10;
+    /* No extra padding for index-like look */
+}
+
+/* KINETIC CONTAINER */
+.kinetic-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80vh; 
+    position: relative;
+    z-index: 10; 
+}
+
+/* MOVING ROWS */
+.list-row {
+    font-size: 3vw; 
+    line-height: 1.8; 
+    
+    text-align: left; 
+    padding-left: 15%;
+    
+    white-space: nowrap;
+    animation: drift infinite alternate ease-in-out;
+}
+
+/* ANIMATION SPEEDS */
+.delay-1 { animation-duration: 10s; }
+.delay-2 { animation-duration: 14s; animation-direction: alternate-reverse; }
+.delay-3 { animation-duration: 12s; }
+
+@keyframes drift {
+    0% { transform: translateX(-15px); }
+    100% { transform: translateX(15px); }
+}
+
+/* LINK STYLES (More Visible/Direct) */
+.hover-trigger {
+    display: inline-block;
+    color: transparent; 
+    
+    /* 2. DARKER OUTLINE */
+    -webkit-text-stroke: 0.8px #888888; 
+    
+    /* 3. FASTER TRANSITION (Snappier) */
+    transition: all 0.2s ease; 
+}
+
+.hover-trigger:hover {
+    color: #000000; 
+    -webkit-text-stroke: 0px transparent; 
+    transform: translateX(10px); 
+}
+
+/* THE YEAR */
+.year {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 1vw; 
+    margin-left: 15px;
+    font-style: normal;
+    font-weight: 600; 
+    color: #000;
+    opacity: 1; 
+}
+
+/* FADE OTHERS */
+.kinetic-container:hover .list-row a {
+    opacity: 0.3; 
+    filter: blur(0px); 
+}
+
+.kinetic-container .list-row a:hover {
+    opacity: 1;
+}
+
+/* --- THE IMAGE CONTAINER --- */
+#ghost-container {
+    position: fixed;
+    z-index: 100; 
+    pointer-events: none; 
+    opacity: 0;
+    transition: opacity 0.3s ease; 
+    background: transparent !important;
+}
+
+#ghost-image {
+    display: block;
+    width: 350px; 
+    height: auto;
+    box-shadow: none !important; 
+    border: none !important;
+    background: transparent !important;
+}
+
+#ghost-image img {
+    background: transparent !important;
+    border: none !important;
+}
+
+/* =========================================
+   PROJECT PAGES :)
+   ========================================= */
+
+body.project-page {
+    background-color: #ffffff;
+    margin: 0;
+    overflow: hidden; 
+    height: 100vh;
+    width: 100vw;
+}
+
+.split-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+/* --- LEFT COLUMN: ULTRA-WIDE --- */
+.text-column {
+    width: 650px; 
+    flex-shrink: 0;
+    height: 100vh;
+    padding: 0 120px 20px 60px; /* moved text higher by setting top padding to 0 */
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.project-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 32px;
+    font-weight: 300;
+    margin-bottom: 40px;
+    line-height: 1.1;
+}
+
+.meta-data {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-top: 1px solid #000;
+    width: 100%; 
+    padding-top: 15px;
+    margin-bottom: 0px;
+}
+
+.fragment-link {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    opacity: 0.5;
+}
+.fragment-link:hover { opacity: 1; }
+
+.project-abstract {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-top: 20px;
+    margin-bottom: 1.2em; /* reduced from 3.5em to move contact section higher */
+}
+
+/* --- RIGHT SIDE: DYNAMIC SHAPE CANVAS --- */
+.display-area {
+    flex-grow: 1;
+    height: 90vh;
+    position:relative;
+    background-color: #fff;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-page .display-area .contact-section {
+    position: absolute;
+    right: 10px;
+    left: 40px;
+    top: 390px;
+    z-index: 10;
+    background: #fff;
+    padding: 1.5em 2em 1em 2em;
+    border-radius: 0 0 0 18px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    align-items: flex-end;
+    text-align: left;
+}
+
+/* --- THE STACK CONTAINER --- */
+.stack-container {
+    position: absolute;
+    top: 50%;
+    left: -150px; 
+    right: 0;
+    transform: translateY(-50%);
+    height: 80vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; 
+    z-index: 100;
+}
+
+/* --- THE STACKED ITEMS --- */
+.stack-item {
+    position: absolute;
+    width: auto;
+    height: auto;
+    max-width: 80%; 
+    max-height: 60vh;
+    
+    opacity: 0; 
+    filter: blur(10px);
+    pointer-events: none; 
+    
+    transition: 
+        opacity 2s cubic-bezier(0.25, 1, 0.5, 1), 
+        filter 1s cubic-bezier(0.25, 1, 0.5, 1), 
+        transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+/* ACTIVE STATE: Forced solid */
+.stack-item.vivid {
+    filter: blur(0px);
+    z-index: 100;
+    opacity: 1 !important; 
+transition: 
+        opacity 2s cubic-bezier(0.25, 1, 0.5, 1), 
+        filter 1s cubic-bezier(0.25, 1, 0.5, 1), 
+        transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* PINNED STATE: Forced solid and interactive */
+.stack-item.pinned {
+    filter: blur(0px);
+    z-index: 200;
+    pointer-events: auto;
+    opacity: 1 !important; 
+    transition: opacity 0.6s ease-out, filter 0.6s ease-out;
+}
+
+#media-3 {
+    max-width: 60%; 
+}
+/* --- TARGETED SMALLER LOCAL VIDEO --- */
+#media-4 {
+    max-height: 60vh !important; 
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent; 
+}
+
+#media-4 video {
+    max-height: 60vh;
+    width: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* --- OPTIONAL: ADJUSTING THE SCATTER RADIUS --- */
+#media-4.vivid {
+transition: 
+        opacity 2s cubic-bezier(0.25, 1, 0.5, 1), 
+        filter 1s cubic-bezier(0.25, 1, 0.5, 1), 
+        transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+/* --- VIMEO: 9:16 CROP & VISIBILITY --- */
+
+.vimeo-wrapper {
+    /* Fixed vertical proportions for the crop */
+    width: 36vh !important; 
+    height: 60vh !important; 
+    aspect-ratio: 9 / 16; 
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+}
+
+.vimeo-wrapper iframe {
+    /* Scale and object-fit to achieve the 9:16 side-crop */
+    width: 140%; 
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* --- STATES --- */
+.stack-item.vivid {
+    filter: blur(0px);
+    opacity: 1 !important; 
+    z-index: 150;
+}
+
+.stack-item.pinned {
+    filter: blur(0px);
+    opacity: 1 !important;
+    z-index: 500;
+    pointer-events: auto;
+}
+
+.pinned iframe {
+    pointer-events: auto;
+}
+/* Special class applied via JS when triggered as a pair */
+.stack-item.as-pair-1 {
+    transform: translate(-55%, -5%) scale(0.85) !important;
+    z-index: 150;
+}
+
+.stack-item.as-pair-2 {
+    transform: translate(55%, 5%) scale(0.85) !important;
+    z-index: 151;
+}
+
+/* Ensure media-3 starts visible on page load */
+#media-3.vivid {
+    opacity: 1 !important;
+    filter: blur(0px);
+    z-index: 100;
+}
+
+
+/* 1. THE BASE STATE (Hidden) */
+.vimeo-wrapper-horizontal {
+    position: absolute;
+    width: 65vh !important; 
+    aspect-ratio: 16 / 9; 
+    background: #000;
+    overflow: hidden;
+    
+    opacity: 0; 
+    filter: blur(25px);
+    pointer-events: none; 
+    
+    transition: 
+        opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+        filter 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+        transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 2. THE VISIBLE STATE (When hovered) */
+.vimeo-wrapper-horizontal.vivid {
+    opacity: 1 !important;
+    filter: blur(0px);
+    z-index: 150;
+}
+
+/* 3. THE PINNED STATE (When clicked) */
+.vimeo-wrapper-horizontal.pinned {
+    opacity: 1 !important;
+    filter: blur(0px);
+    z-index: 500;
+    pointer-events: auto;
+}
+
+/* 4. THE IFRAME RESET (Forces standard 16:9 look) */
+.vimeo-wrapper-horizontal iframe {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+/* Specific size for the opening image */
+#media-7 {
+    max-height: 40vh !important; 
+    width: auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* Ensure it stays sharp and centered when active */
+#media-7.vivid {
+    filter: blur(0px);
+    opacity: 1 !important;
+    transform: translate(0, 0); 
+    z-index: 100;
+}
+
+/* Specific size for the opening image */
+#media-10 {
+    max-height: 10vh !important; 
+    width: auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* Ensure it stays sharp and centered when active */
+#media-10.vivid {
+    filter: blur(0px);
+    opacity: 1 !important;
+    transform: translate(0, 0); 
+    z-index: 100;
+}
+
+/* =========================================
+   ABOUT PAGE
+   ========================================= */
+
+.about-page .split-layout {
+    align-items: flex-start; 
+    padding-top: 4vh; 
+}
+
+/* 1. Name Title Spacing */
+.about-page .project-title {
+    margin-top: -2rem;
+    margin-bottom: 0rem; 
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 32px;
+    font-weight: 300;
+    margin-bottom: 40px;
+    line-height: 1.1;
+}
+
+.about-page .display-area {
+    margin-top: 0;
+}
+
+/* 2. Main Text Styling */
+.about-page .project-abstract p {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #444;
+    letter-spacing: 0.01em;
+    margin-top: -1rem;
+    margin-bottom: 2.2em; /* increased space between paragraphs */
+}
+
+.about-page .project-abstract strong {
+    font-weight: 500;
+    color: #000;
+}
+
+/* 3. Contact Section  */
+.about-page .contact-section {
+    margin-top: 0; /* removed negative margin, now flush with above */
+    padding-bottom: 4rem; 
+    border: none; 
+}
+
+.about-page .contact-section p {
+    margin-bottom: 0.8rem; 
+}
+
+/* 4. Unified Link Styling (Contact & Inline) */
+.about-page .inline-link {
+    font-family: 'Inter Tight', sans-serif;
+    text-decoration: none;
+    color: #000;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+.about-page .contact-section a{
+    font-family: 'Inter Tight', sans-serif;
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: none;
+    color: #000;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.15); 
+    transition: all 0.3s ease;
+    padding-bottom: 1px;
+    padding-top: -10px;
+}
+
+/* 5. Unified Hover State */
+.about-page .contact-section a:hover,
+.about-page .inline-link:hover {
+    border-bottom-color: #000; 
+    background-color: rgba(0,0,0,0.03); 
+    opacity: 0.8;
+}
+
+.about-page .section-label {
+    border: none;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #999;
+    margin-bottom: 1.2rem;
+    display: block;
+}
+
+/* --- ABOUT PAGE IMAGE  --- */
+
+.about-page #about-image {
+    max-height: 40vh !important; 
+    width: auto;                 
+    max-width: 100px;        
+    display: block;
+    margin-top: -10rem;        
+}
+
+
+
