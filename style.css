@@ -240,9 +240,15 @@ body.project-page {
     font-size: 12px;
     text-transform: uppercase;
     border-top: 1px solid #000;
+    font-weight: 400;
     width: 100%; 
     padding-top: 15px;
     margin-bottom: 0px;
+}
+
+.meta-data strong {
+    font-weight: 600;
+    color: #000;
 }
 
 .fragment-link {
@@ -504,7 +510,7 @@ transition:
 
 /* 1. Name Title Spacing */
 .about-page .project-title {
-    margin-top: -2rem;
+    margin-top: 0rem;
     margin-bottom: 0rem; 
     font-family: 'Times New Roman', Times, serif;
     font-size: 32px;
