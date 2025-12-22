@@ -35,22 +35,37 @@ function animate() {
 animate();
 
 links.forEach(link => {
-    link.addEventListener('mouseenter', function() {
-        const src = this.getAttribute('data-img');
+    const isTouch = 'ontouchstart' in window;
+
+    const showGhost = () => {
+        const src = link.getAttribute('data-img');
         ghostImg.src = src;
 
-        // Random Spawn (Keep text clear area if possible, or fully random)
-        spawnX = Math.random() * (window.innerWidth - 350);
-        spawnY = Math.random() * (window.innerHeight - 300);
-        
-        // Snap current position to spawn so it doesn't fly in
+        // Limit spawn area to avoid nav and About link
+        const nav = document.querySelector('nav');
+        const navRect = nav ? nav.getBoundingClientRect() : { bottom: 0 };
+        const spawnWidth = window.innerWidth - 350;
+        const spawnHeight = window.innerHeight - 300;
+
+        spawnX = Math.random() * spawnWidth;
+        spawnY = navRect.bottom + Math.random() * (spawnHeight - navRect.bottom);
+
+        // Snap current position to spawn for smooth animation
         currentX = spawnX + ((mouseX - window.innerWidth / 2) * 0.05);
         currentY = spawnY + ((mouseY - window.innerHeight / 2) * 0.05);
 
         ghostContainer.style.opacity = 1;
-    });
+    };
 
-    link.addEventListener('mouseleave', function() {
+    const hideGhost = () => {
         ghostContainer.style.opacity = 0;
-    });
+    };
+
+    if (isTouch) {
+        link.addEventListener('touchstart', showGhost);
+        link.addEventListener('touchend', hideGhost);
+    } else {
+        link.addEventListener('mouseenter', showGhost);
+        link.addEventListener('mouseleave', hideGhost);
+    }
 });
