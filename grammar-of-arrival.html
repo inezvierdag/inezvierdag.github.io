@@ -8,9 +8,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
+    <style>
+        /* Page-specific: tighter gap between the exhibition line and the
+           abstract, without changing this spacing on other project pages. */
+        .grammar-page .project-abstract {
+            margin-top: 8px;
+        }
+        .grammar-page .project-abstract p:first-child {
+            margin-top: 0;
+        }
+        .grammar-page .exhibition-history p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
 </head>
 
-<body class="project-page">
+<body class="project-page grammar-page">
 
     <nav>
         <div class="nav-item"><a href="index.html">Home</a></div>
