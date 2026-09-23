@@ -786,8 +786,18 @@ body.project-page .text-column {
     /* Kinetic homepage list, simplified */
     .kinetic-container {
         height: auto;
-        padding-top: 16px;
+        padding-top: 64px; /* clears the fixed nav, which isn't in normal flow */
         padding-bottom: 16px;
+    }
+
+    /* The flower watermark is centered in the full viewport (position:fixed),
+       but on mobile the list is short and sits at the top — so a
+       viewport-centered background ends up floating far below it with a
+       big empty gap on both sides. Anchor it to the content instead. */
+    body.index-page::before {
+        position: absolute;
+        background-size: 70vw;
+        background-position: center 220px;
     }
 
     .list-row {
