@@ -332,17 +332,22 @@ body.project-page {
 
 /* --- THE STACKED ITEMS --- */
 .stack-item {
+    /* Centered via inset + auto margins rather than relying on the
+       browser's "static position" fallback (which depends on the
+       other, invisible siblings and is unreliable across image sets). */
     position: absolute;
+    inset: 0;
+    margin: auto;
     width: auto;
     height: auto;
-    max-width: 80%; 
+    max-width: 80%;
     max-height: 60vh;
-    
-    opacity: 0; 
+
+    opacity: 0;
     filter: blur(10px);
-    pointer-events: none; 
-    
-    transition: 
+    pointer-events: none;
+
+    transition:
         opacity 2s cubic-bezier(0.25, 1, 0.5, 1), 
         filter 1s cubic-bezier(0.25, 1, 0.5, 1), 
         transform 1s cubic-bezier(0.25, 1, 0.5, 1);
@@ -732,6 +737,14 @@ body.project-page .text-column {
         max-height: 40vh;
         position: relative;
         margin: 1rem auto;
+    }
+
+    /* Take inactive items out of flow entirely — otherwise every stack-item
+       (opacity:0 or not) still occupies space as a flex child of
+       .stack-container, and with more than a couple of images that row
+       overflows and the visible one can end up centered off-screen. */
+    .stack-item:not(.vivid):not(.pinned) {
+        display: none;
     }
 
     .vimeo-wrapper iframe,

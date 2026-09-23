@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inez Vierdag | The Grammar of Arrival</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
+</head>
+
+<body class="project-page">
+
+    <nav>
+        <div class="nav-item"><a href="index.html">Home</a></div>
+        <div class="nav-item"><a href="about.html">About</a></div>
+    </nav>
+
+    <main class="split-layout">
+
+<section class="text-column">
+    <h1 class="project-title"><em>The Grammar</em> of Arrival</h1>
+
+    <div class="meta-data">
+        <p><strong>Medium:</strong> Interactive Installation</p>
+        <p><strong>Materials:</strong> Receipt printer, monitor, projection, local language model, fabric</p>
+        <br>
+
+    <div class="exhibition-history">
+            <p><strong>2026</strong> — <span class="ex-item fragment-link" data-target="grammar-1">Loods6</span>, Amsterdam</p>
+            <p><span class="fragment-link" data-target="grammar-2">Visitors writing</span></p>
+            <p><span class="fragment-link" data-target="grammar-3">Reading the projection</span></p>
+            <p><span class="fragment-link" data-target="grammar-4">The printed receipt</span></p>
+        </div>
+            </div>
+
+    <div class="project-abstract">
+        <p>
+            <em>The Grammar of Arrival</em> takes a language model's own internal metric—loss, how hard a word was for it to predict—and turns it into a measure of whose writing is allowed to arrive easily. Visitors sit at a terminal and write. The model, trained on billions of pages of formal, institutional English, scores the friction between their words and what it expected.
+        </p>
+        <p>
+            That score is projected live onto a curtain of stretched fabric, where everyone's words accumulate into a single, asymmetrical map: dense where writing matched the model's expectations, sparse and strained where it didn't. The visitor's result is also printed, receipt-style, to take home.
+        </p>
+        <p class="abstract-footer">
+            Whose rhythm counts as noise, and whose is written down as truth?
+        </p>
+    </div>
+</section>
+
+<section class="display-area" id="discovery-zone">
+    <div class="stack-container">
+        <img id="grammar-1" src="assets/grammar-fullexp.jpg" class="stack-item vivid" style="opacity: 1;">
+        <img id="grammar-2" src="assets/grammar-people.jpg" class="stack-item">
+        <img id="grammar-3" src="assets/grammar-person.jpg" class="stack-item">
+        <img id="grammar-4" src="assets/grammar-receipt.jpg" class="stack-item">
+    </div>
+</section>
+    </main>
+
+<script>
+    const items = document.querySelectorAll('.stack-item');
+    const links = document.querySelectorAll('.fragment-link');
+
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            const targetIds = link.getAttribute('data-target').split(',');
+
+            items.forEach(i => {
+                if (!targetIds.includes(i.id) && !i.classList.contains('pinned')) {
+                    i.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
+                    i.style.opacity = "0.2";
+                    if (i.timer) clearTimeout(i.timer);
+                }
+            });
+
+            targetIds.forEach((id, index) => {
+                const el = document.getElementById(id.trim());
+                if (el) {
+                    el.classList.add('vivid');
+                    el.style.opacity = "1";
+
+                    if (targetIds.length > 1) {
+                        el.classList.add(index === 0 ? 'as-pair-1' : 'as-pair-2');
+                    } else {
+                        const ox = Math.floor(Math.random() * 40) - 20;
+                        const oy = Math.floor(Math.random() * 40) - 20;
+                        el.style.transform = `translate(${ox}px, ${oy}px)`;
+                    }
+
+                    if (el.timer) clearTimeout(el.timer);
+                    el.timer = setTimeout(() => {
+                        if (!el.classList.contains('pinned')) {
+                            el.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
+                            el.style.opacity = "0";
+                        }
+                    }, 10000);
+                }
+            });
+        });
+
+        link.addEventListener('click', (e) => {
+            const targetIds = link.getAttribute('data-target').split(',');
+            targetIds.forEach(id => {
+                const el = document.getElementById(id.trim());
+                if (el) {
+                    el.classList.toggle('pinned');
+                    el.style.opacity = "1";
+                    el.style.zIndex = el.classList.contains('pinned') ? "500" : "150";
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
