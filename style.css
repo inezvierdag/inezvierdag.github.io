@@ -132,7 +132,7 @@ body.index-page::before {
     background-repeat: no-repeat;
     background-position: center;
     background-size: min(60vw, 700px);
-    opacity: 0.08;
+    opacity: 0.25;
     z-index: 0;
     pointer-events: none;
 }
