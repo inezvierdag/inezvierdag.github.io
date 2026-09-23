@@ -228,13 +228,16 @@ body.project-page {
     max-width: 1600px;
     margin: 0 auto;
     height: 100%;
+    /* Center the (fixed-width) text+image pair as a block, so extra
+       space on a wide screen becomes equal margin on both sides
+       instead of piling up only on the right. */
+    justify-content: center;
 }
 
 
 /* --- LEFT COLUMN: ULTRA-WIDE --- */
 .text-column {
     width: var(--width-text-column);
-    max-width: 55vw;
     flex-shrink: 0;
     height: 100vh;
     padding: 0 120px 20px 60px; /* moved text higher by setting top padding to 0 */
@@ -286,7 +289,11 @@ body.project-page {
 
 /* --- RIGHT SIDE: DYNAMIC SHAPE CANVAS --- */
 .display-area {
-    flex-grow: 1;
+    /* Fixed width so the composition (image size + the gap to the text)
+       stays constant as the window resizes — only the outer margin grows
+       or shrinks. Below the tablet breakpoint this switches back to
+       flexible sizing so it doesn't overflow narrower windows. */
+    flex: 0 1 700px;
     height: 90vh;
     position:relative;
     background-color: var(--color-paper);
@@ -633,6 +640,10 @@ body.project-page .text-column {
     .text-column {
         max-width: 42vw;
         padding: 0 40px 20px 40px;
+    }
+
+    .display-area {
+        flex: 1 1 auto;
     }
 
     /* Anchor to the bottom instead of a fixed 390px from the top —
