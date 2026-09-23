@@ -180,10 +180,7 @@ body.index-page::before {
     opacity: 1; 
 }
 
-/* FADE OTHERS — only once a specific title is actually hovered,
-   not just because the cursor entered the list's bounding box.
-   :not(:hover) excludes the hovered link directly, rather than
-   relying on a second rule to win a specificity tie against :has(). */
+/* FADE OTHERS */
 .kinetic-container:has(.list-row a:hover) .list-row a:not(:hover) {
     opacity: 0.3;
     filter: blur(0px);
@@ -199,20 +196,13 @@ body.project-page {
     overflow: hidden;
 }
 
-/* Fills the body's own (padded) content box — not the raw viewport, which
-   combined with body's padding under content-box sizing would make the
-   page ~120px wider/taller than the screen and get silently clipped by
-   overflow:hidden, pushing right/bottom-anchored content off-screen on
-   large monitors. */
+
 .split-layout {
     display: flex;
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
     height: 100%;
-    /* Center the (fixed-width) text+image pair as a block, so extra
-       space on a wide screen becomes equal margin on both sides
-       instead of piling up only on the right. */
     justify-content: center;
 }
 
@@ -222,7 +212,7 @@ body.project-page {
     width: var(--width-text-column);
     flex-shrink: 0;
     height: 100vh;
-    padding: 0 120px 20px 60px; /* moved text higher by setting top padding to 0 */
+    padding: 0 120px 20px 60px; 
     display: flex;
     flex-direction: column;
     z-index: 20;
@@ -271,10 +261,6 @@ body.project-page {
 
 /* --- RIGHT SIDE: DYNAMIC SHAPE CANVAS --- */
 .display-area {
-    /* Fixed width so the composition (image size + the gap to the text)
-       stays constant as the window resizes — only the outer margin grows
-       or shrinks. Below the tablet breakpoint this switches back to
-       flexible sizing so it doesn't overflow narrower windows. */
     flex: 0 1 700px;
     height: 90vh;
     position:relative;
@@ -314,9 +300,6 @@ body.project-page {
 
 /* --- THE STACKED ITEMS --- */
 .stack-item {
-    /* Centered via inset + auto margins rather than relying on the
-       browser's "static position" fallback (which depends on the
-       other, invisible siblings and is unreliable across image sets). */
     position: absolute;
     inset: 0;
     margin: auto;
@@ -487,7 +470,7 @@ transition:
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
-/* Ensure it stays sharp and centered when active */
+
 #media-10.vivid {
     filter: blur(0px);
     opacity: 1 !important;
@@ -528,7 +511,7 @@ transition:
     color: var(--color-body-text);
     letter-spacing: 0.01em;
     margin-top: -1rem;
-    margin-bottom: 2.2em; /* increased space between paragraphs */
+    margin-bottom: 2.2em; 
 }
 
 .about-page .project-abstract strong {
@@ -538,7 +521,7 @@ transition:
 
 /* 3. Contact Section  */
 .about-page .contact-section {
-    margin-top: 0; /* removed negative margin, now flush with above */
+    margin-top: 0; 
     padding-bottom: 4rem; 
     border: none; 
 }
@@ -547,7 +530,7 @@ transition:
     margin-bottom: 0.8rem; 
 }
 
-/* 4. Unified Link Styling (Contact & Inline) */
+/* 4. Unified Link (Contact & Inline) */
 .about-page .inline-link {
     font-family: var(--font-sans);
     text-decoration: none;
@@ -603,10 +586,6 @@ body.project-page .text-column {
 
 /* =========================================
    TABLET (481px – 900px)
-   Keeps the split layout but lets the text
-   column shrink so the display-area (and the
-   About page contact block inside it) always
-   has real room instead of collapsing to ~0.
    ========================================= */
 @media (max-width: 900px) {
     .text-column {
@@ -618,9 +597,6 @@ body.project-page .text-column {
         flex: 1 1 auto;
     }
 
-    /* Anchor to the bottom instead of a fixed 390px from the top —
-       at narrower widths the vertically-centered photo above would
-       otherwise overlap this fixed position. */
     .about-page .display-area .contact-section {
         top: auto;
         bottom: 40px;
@@ -635,8 +611,7 @@ body.project-page .text-column {
 
 /* =========================================
    MOBILE (max-width: 480px)
-   Single consolidated breakpoint — the split
-   layout stacks into one column.
+
    ========================================= */
 @media (max-width: 480px) {
 
@@ -706,10 +681,7 @@ body.project-page .text-column {
         margin: 1rem auto;
     }
 
-    /* Take inactive items out of flow entirely — otherwise every stack-item
-       (opacity:0 or not) still occupies space as a flex child of
-       .stack-container, and with more than a couple of images that row
-       overflows and the visible one can end up centered off-screen. */
+    /* Take inactive items out. */
     .stack-item:not(.vivid):not(.pinned) {
         display: none;
     }
@@ -720,7 +692,7 @@ body.project-page .text-column {
         height: auto;
     }
 
-    /* Nav: fixed row, tighter side padding for small screens */
+    /* Nav */
     nav {
         top: 16px;
         left: 16px;
@@ -743,7 +715,7 @@ body.project-page .text-column {
         box-shadow: none;
     }
 
-    /* Disable hover effects on mobile (no cursor to hover with) */
+    /* Disable hover effects on mobile  */
     .hover-trigger {
         color: var(--color-ink);
         -webkit-text-stroke: 0;
@@ -754,14 +726,11 @@ body.project-page .text-column {
     /* Kinetic homepage list, simplified */
     .kinetic-container {
         height: auto;
-        padding-top: 96px; /* clears the fixed nav, which isn't in normal flow — generous margin for cross-browser font-metric differences (e.g. iOS Safari) */
+        padding-top: 96px; 
         padding-bottom: 16px;
     }
 
-    /* The flower watermark is centered in the full viewport (position:fixed),
-       but on mobile the list is short and sits at the top — so a
-       viewport-centered background ends up floating far below it with a
-       big empty gap on both sides. Anchor it to the content instead. */
+    /* The flower */
     body.index-page::before {
         position: absolute;
         background-size: 70vw;
