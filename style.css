@@ -786,7 +786,7 @@ body.project-page .text-column {
     /* Kinetic homepage list, simplified */
     .kinetic-container {
         height: auto;
-        padding-top: 64px; /* clears the fixed nav, which isn't in normal flow */
+        padding-top: 96px; /* clears the fixed nav, which isn't in normal flow — generous margin for cross-browser font-metric differences (e.g. iOS Safari) */
         padding-bottom: 16px;
     }
 
@@ -797,7 +797,7 @@ body.project-page .text-column {
     body.index-page::before {
         position: absolute;
         background-size: 70vw;
-        background-position: center 220px;
+        background-position: center 250px;
     }
 
     .list-row {
