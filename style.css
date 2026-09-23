@@ -621,11 +621,10 @@ transition:
 /* --- ABOUT PAGE IMAGE  --- */
 
 .about-page #about-image {
-    max-height: 40vh !important; 
-    width: auto;                 
-    max-width: 100px;        
+    max-height: 40vh !important;
+    width: auto;
+    max-width: 100px;
     display: block;
-    margin-top: -10rem;        
 }
 
 
