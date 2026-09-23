@@ -283,8 +283,16 @@ body.project-page {
     font-family: var(--font-serif-body);
     font-size: 15px;
     line-height: 1.6;
-    margin-top: 20px;
+    margin-top: 8px;
     margin-bottom: 1.2em; /* reduced from 3.5em to move contact section higher */
+}
+
+.project-abstract p:first-child {
+    margin-top: 0;
+}
+
+.exhibition-history p:last-child {
+    margin-bottom: 0;
 }
 
 /* --- RIGHT SIDE: DYNAMIC SHAPE CANVAS --- */
