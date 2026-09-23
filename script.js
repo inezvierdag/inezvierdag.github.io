@@ -47,8 +47,32 @@ links.forEach(link => {
         const spawnWidth = window.innerWidth - 350;
         const spawnHeight = window.innerHeight - 300;
 
-        spawnX = Math.random() * spawnWidth;
-        spawnY = navRect.bottom + Math.random() * (spawnHeight - navRect.bottom);
+        // Keep the preview clear of the kinetic list itself, so it never
+        // spawns directly on top of the text it's previewing. Measure the
+        // links themselves (inline-block, sized to their text) rather than
+        // their row wrappers (block-level, stretched full-width by the
+        // flex column parent).
+        let textRight = 0;
+        let textBottom = 0;
+        links.forEach(l => {
+            const r = l.getBoundingClientRect();
+            textRight = Math.max(textRight, r.right);
+            textBottom = Math.max(textBottom, r.bottom);
+        });
+        const minX = textRight + 40;
+        const roomToTheRight = spawnWidth - minX;
+
+        if (roomToTheRight > 120) {
+            // Plenty of open space beside the list — float there.
+            spawnX = minX + Math.random() * roomToTheRight;
+            spawnY = navRect.bottom + Math.random() * (spawnHeight - navRect.bottom);
+        } else {
+            // Not enough room beside the list (narrow viewport) — drop
+            // below it instead of overlapping the text.
+            spawnX = Math.random() * spawnWidth;
+            const minY = Math.min(textBottom + 20, spawnHeight);
+            spawnY = minY + Math.random() * Math.max(0, spawnHeight - minY);
+        }
 
         // Snap current position to spawn for smooth animation
         currentX = spawnX + ((mouseX - window.innerWidth / 2) * 0.05);
