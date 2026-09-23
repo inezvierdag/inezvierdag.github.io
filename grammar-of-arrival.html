@@ -28,22 +28,22 @@
         <br>
 
     <div class="exhibition-history">
-            <p><strong>2026</strong> — <span class="ex-item fragment-link" data-target="grammar-1">Loods6</span>, Amsterdam</p>
-            <p><span class="fragment-link" data-target="grammar-2">Visitors writing</span></p>
-            <p><span class="fragment-link" data-target="grammar-3">Reading the projection</span></p>
-            <p><span class="fragment-link" data-target="grammar-4">The printed receipt</span></p>
+            <p><strong>2026</strong> — Loods6, Amsterdam</p>
         </div>
             </div>
 
     <div class="project-abstract">
         <p>
-            <em>The Grammar of Arrival</em> takes a language model's own internal metric—loss, how hard a word was for it to predict—and turns it into a measure of whose writing is allowed to arrive easily. Visitors sit at a terminal and write. The model, trained on billions of pages of formal, institutional English, scores the friction between their words and what it expected.
+            <em>The Grammar of Arrival</em> puts a visitor in front of a terminal that can only be answered starting with the word <em>I</em>. Whatever follows is read by a local, offline language model — nothing leaves the room — which scores each word by how surprising it was: a loss value, in nats, measuring the distance between what was written and what the model already expected English to do.
         </p>
         <p>
-            That score is projected live onto a curtain of stretched fabric, where everyone's words accumulate into a single, asymmetrical map: dense where writing matched the model's expectations, sparse and strained where it didn't. The visitor's result is also printed, receipt-style, to take home.
+            The words the model found most costly are kept; everything else, including the sentence itself, is deleted the moment it is measured. What remains travels onto a curtain of hanging fabric, joining a constellation built by everyone who has written there before — over three days, eighty-six visitors typed 3,653 words into it, and 1,108 of them remained on the wall by closing. A receipt prints the visitor's retained words alongside the model's own continuation: a small, physical account of where a sentence resisted, and where it didn't.
+        </p>
+        <p>
+            Developed from the artistic research thesis <em>The Loss of a Body: The Measurable Improbability of the Situated Sentence</em> (rMA Art and Performance Studies, University of Amsterdam, 2026), which asks what a language model's loss metric can and cannot register about the body that wrote the sentence it is scoring.
         </p>
         <p class="abstract-footer">
-            Whose rhythm counts as noise, and whose is written down as truth?
+            What does a body lose to become legible to a machine?
         </p>
     </div>
 </section>
@@ -59,57 +59,23 @@
     </main>
 
 <script>
-    const items = document.querySelectorAll('.stack-item');
-    const links = document.querySelectorAll('.fragment-link');
+    // Hovering the image cycles to the next one in the set.
+    const items = Array.from(document.querySelectorAll('.stack-item'));
+    const displayArea = document.getElementById('discovery-zone');
+    let current = items.findIndex(i => i.classList.contains('vivid'));
 
-    links.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            const targetIds = link.getAttribute('data-target').split(',');
+    displayArea.addEventListener('mouseenter', () => {
+        const next = (current + 1) % items.length;
+        const from = items[current];
+        const to = items[next];
 
-            items.forEach(i => {
-                if (!targetIds.includes(i.id) && !i.classList.contains('pinned')) {
-                    i.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
-                    i.style.opacity = "0.2";
-                    if (i.timer) clearTimeout(i.timer);
-                }
-            });
+        from.classList.remove('vivid');
+        from.style.opacity = '0';
 
-            targetIds.forEach((id, index) => {
-                const el = document.getElementById(id.trim());
-                if (el) {
-                    el.classList.add('vivid');
-                    el.style.opacity = "1";
+        to.classList.add('vivid');
+        to.style.opacity = '1';
 
-                    if (targetIds.length > 1) {
-                        el.classList.add(index === 0 ? 'as-pair-1' : 'as-pair-2');
-                    } else {
-                        const ox = Math.floor(Math.random() * 40) - 20;
-                        const oy = Math.floor(Math.random() * 40) - 20;
-                        el.style.transform = `translate(${ox}px, ${oy}px)`;
-                    }
-
-                    if (el.timer) clearTimeout(el.timer);
-                    el.timer = setTimeout(() => {
-                        if (!el.classList.contains('pinned')) {
-                            el.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
-                            el.style.opacity = "0";
-                        }
-                    }, 10000);
-                }
-            });
-        });
-
-        link.addEventListener('click', (e) => {
-            const targetIds = link.getAttribute('data-target').split(',');
-            targetIds.forEach(id => {
-                const el = document.getElementById(id.trim());
-                if (el) {
-                    el.classList.toggle('pinned');
-                    el.style.opacity = "1";
-                    el.style.zIndex = el.classList.contains('pinned') ? "500" : "150";
-                }
-            });
-        });
+        current = next;
     });
 </script>
 </body>
