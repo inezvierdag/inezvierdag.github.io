@@ -119,6 +119,24 @@ nav a:hover {
     /* No extra padding for index-like look */
 }
 
+/* --- HOMEPAGE BACKGROUND WATERMARK --- */
+body.index-page {
+    position: relative;
+}
+
+body.index-page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url('assets/flower.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: min(60vw, 700px);
+    opacity: 0.08;
+    z-index: 0;
+    pointer-events: none;
+}
+
 /* KINETIC CONTAINER */
 .kinetic-container {
     display: flex;
