@@ -225,7 +225,7 @@ body.project-page {
 .split-layout {
     display: flex;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     height: 100%;
 }
@@ -304,11 +304,6 @@ body.project-page {
     max-width: 320px;
     top: 390px;
     z-index: 10;
-    background: var(--color-paper);
-    padding: 1.5em 2em 1em 2em;
-    border-radius: 12px;
-    border: 1px solid var(--color-line);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     align-items: flex-end;
     text-align: left;
 }
