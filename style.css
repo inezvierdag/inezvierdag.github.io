@@ -58,7 +58,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
     font-style: normal;
     text-transform: uppercase;
@@ -79,7 +79,7 @@ nav a {
     font-family: var(--font-sans);
     display: block;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 17px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     color: var(--color-ink);
@@ -205,30 +205,6 @@ body.index-page::before {
 .kinetic-container:has(.list-row a:hover) .list-row a:not(:hover) {
     opacity: 0.3;
     filter: blur(0px);
-}
-
-/* --- THE IMAGE CONTAINER --- */
-#ghost-container {
-    position: fixed;
-    z-index: 100; 
-    pointer-events: none; 
-    opacity: 0;
-    transition: opacity 0.3s ease; 
-    background: transparent !important;
-}
-
-#ghost-image {
-    display: block;
-    width: clamp(180px, 30vw, 350px);
-    height: auto;
-    box-shadow: none !important;
-    border: none !important;
-    background: transparent !important;
-}
-
-#ghost-image img {
-    background: transparent !important;
-    border: none !important;
 }
 
 /* =========================================
@@ -759,7 +735,7 @@ body.project-page .text-column {
     }
 
     nav a {
-        font-size: 15px;
+        font-size: 17px;
     }
 
     /* Contact section stacks below everything on About */
@@ -797,13 +773,5 @@ body.project-page .text-column {
 
     .year {
         font-size: 3vw;
-    }
-
-    #ghost-container, #ghost-image {
-        width: 90%;
-        max-width: 300px;
-        margin: 0 auto;
-        left: 50%;
-        transform: translateX(-50%);
     }
 }
