@@ -180,14 +180,13 @@ nav a:hover {
     opacity: 1; 
 }
 
-/* FADE OTHERS */
-.kinetic-container:hover .list-row a {
-    opacity: 0.3; 
-    filter: blur(0px); 
-}
-
-.kinetic-container .list-row a:hover {
-    opacity: 1;
+/* FADE OTHERS — only once a specific title is actually hovered,
+   not just because the cursor entered the list's bounding box.
+   :not(:hover) excludes the hovered link directly, rather than
+   relying on a second rule to win a specificity tie against :has(). */
+.kinetic-container:has(.list-row a:hover) .list-row a:not(:hover) {
+    opacity: 0.3;
+    filter: blur(0px);
 }
 
 /* --- THE IMAGE CONTAINER --- */
