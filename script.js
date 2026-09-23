@@ -41,11 +41,18 @@ links.forEach(link => {
         const src = link.getAttribute('data-img');
         ghostImg.src = src;
 
+        // Reserve space matching the preview's actual (responsive) size —
+        // #ghost-image is CSS clamp(180px, 30vw, 350px) wide — instead of
+        // a fixed 350/300 that leaves no room to avoid overlap on smaller
+        // windows.
+        const previewW = Math.min(350, Math.max(180, window.innerWidth * 0.3));
+        const previewH = Math.min(300, Math.max(160, window.innerHeight * 0.35));
+
         // Limit spawn area to avoid nav and About link
         const nav = document.querySelector('nav');
         const navRect = nav ? nav.getBoundingClientRect() : { bottom: 0 };
-        const spawnWidth = window.innerWidth - 350;
-        const spawnHeight = window.innerHeight - 300;
+        const spawnWidth = window.innerWidth - previewW;
+        const spawnHeight = window.innerHeight - previewH;
 
         // Keep the preview clear of the kinetic list itself, so it never
         // spawns directly on top of the text it's previewing. Measure the
@@ -62,10 +69,10 @@ links.forEach(link => {
         const minX = textRight + 40;
         const roomToTheRight = spawnWidth - minX;
 
-        if (roomToTheRight > 120) {
+        if (roomToTheRight > 80) {
             // Plenty of open space beside the list — float there.
             spawnX = minX + Math.random() * roomToTheRight;
-            spawnY = navRect.bottom + Math.random() * (spawnHeight - navRect.bottom);
+            spawnY = navRect.bottom + Math.random() * Math.max(0, spawnHeight - navRect.bottom);
         } else {
             // Not enough room beside the list (narrow viewport) — drop
             // below it instead of overlapping the text.
