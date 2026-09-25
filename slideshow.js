@@ -1,11 +1,22 @@
 (function () {
-    const IMAGE_MIN_MS = 5000;
-    const IMAGE_MAX_MS = 8000;
-    const imageMs = () => IMAGE_MIN_MS + Math.random() * (IMAGE_MAX_MS - IMAGE_MIN_MS);
     const VIDEO_FALLBACK_MS = 60000;
+    const GHOST_OPACITY = '0.2';
 
     const container = document.querySelector('.stack-container[data-steps]');
     if (!container) return;
+
+    const IMAGE_MIN_MS = Number(container.dataset.dwellMin) || 5000;
+    const IMAGE_MAX_MS = Number(container.dataset.dwellMax) || 8000;
+    const FIRST_MS = Number(container.dataset.firstMs) || null;
+    let firstDone = false;
+    const imageMs = () => {
+        if (!firstDone && FIRST_MS) {
+            firstDone = true;
+            return FIRST_MS;
+        }
+        firstDone = true;
+        return IMAGE_MIN_MS + Math.random() * (IMAGE_MAX_MS - IMAGE_MIN_MS);
+    };
 
     const zone = document.getElementById('discovery-zone');
     const steps = container.dataset.steps.split(';').map(s => s.split(','));
@@ -51,6 +62,7 @@
     }
 
     function show(ids) {
+        const leaving = active;
         active = new Set(ids);
         allIds.forEach(id => {
             const m = getMedia(id);
@@ -61,7 +73,7 @@
                 playMedia(m);
             } else {
                 m.el.classList.remove('vivid');
-                m.el.style.opacity = '0';
+                m.el.style.opacity = leaving.has(id) ? GHOST_OPACITY : '0';
                 stopMedia(m);
             }
         });
