@@ -51,13 +51,13 @@
         </section>
 
         <section class="display-area" id="discovery-zone">
-            <div class="stack-container">
+            <div class="stack-container" data-steps="media-7;media-6">
                 
                 <img id="media-7" src="../assets/dropdeadgorgeous1.jpg" class="stack-item vivid" style="opacity: 1;">
                 
                 <div id="media-6" class="stack-item vimeo-wrapper-horizontal">
                     <iframe 
-                        src="https://player.vimeo.com/video/791855427?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;background=1&amp;loop=1&amp;muted=1" 
+                        src="https://player.vimeo.com/video/791855427?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;background=1&amp;loop=0&amp;muted=1" 
                         frameborder="0" 
                         allow="autoplay; fullscreen; picture-in-picture" 
                         style="width:100%; height:100%;" 
@@ -65,76 +65,11 @@
                     </iframe>
                 </div>
 
-            </div> <script src="https://player.vimeo.com/api/player.js"></script>
+            </div>
         </section>
     </main>
 
-    <script>
-        const items = document.querySelectorAll('.stack-item');
-        const links = document.querySelectorAll('.fragment-link');
-
-        links.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                const targetIds = link.getAttribute('data-target').split(',');
-                
-                // Reset other non-pinned items
-                items.forEach(i => {
-                    if (!targetIds.includes(i.id) && !i.classList.contains('pinned')) {
-                        i.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
-                        i.style.opacity = "0.4"; // Keep background slightly visible
-                        if (i.timer) clearTimeout(i.timer);
-                    }
-                });
-
-                // Trigger New Item(s)
-                targetIds.forEach((id, index) => {
-                    const el = document.getElementById(id.trim());
-                    if (el) {
-                        el.classList.add('vivid');
-                        el.style.opacity = "1";
-
-                        if (targetIds.length > 1) {
-                            el.classList.add(index === 0 ? 'as-pair-1' : 'as-pair-2');
-                        } else {
-                            const ox = Math.floor(Math.random() * 40) - 20;
-                            const oy = Math.floor(Math.random() * 40) - 20;
-                            el.style.transform = `translate(${ox}px, ${oy}px)`;
-                        }
-
-                        // Auto-fade timer
-                        if (el.timer) clearTimeout(el.timer);
-                        el.timer = setTimeout(() => {
-                            if (!el.classList.contains('pinned')) {
-                                el.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
-                                el.style.opacity = "0";
-                            }
-                        }, 10000);
-                    }
-                });
-            });
-
-            link.addEventListener('click', () => {
-                const targetIds = link.getAttribute('data-target').split(',');
-                targetIds.forEach(id => {
-                    const el = document.getElementById(id.trim());
-                    if (el) {
-                        el.classList.toggle('pinned');
-                        el.style.zIndex = el.classList.contains('pinned') ? "500" : "150";
-                        el.style.opacity = "1";
-                    }
-                });
-            });
-        });
-
-        // Click background to clear all
-        document.getElementById('discovery-zone').addEventListener('click', (e) => {
-            if (e.target.id === 'discovery-zone') {
-                items.forEach(i => {
-                    i.classList.remove('pinned', 'vivid', 'as-pair-1', 'as-pair-2');
-                    i.style.opacity = "0";
-                });
-            }
-        });
-    </script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script src="slideshow.js"></script>
 </body>
 </html>

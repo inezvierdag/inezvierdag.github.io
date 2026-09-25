@@ -49,77 +49,25 @@
 </section>
 
 <section class="display-area" id="discovery-zone">
-    <div class="stack-container">
+    <div class="stack-container" data-steps="media-3;media-1,media-2;media-4;media-5">
         <img id="media-1" src="../assets/unbecoming1.jpg" class="stack-item">
         <img id="media-2" src="../assets/unbecoming2.jpg" class="stack-item">
         
         <img id="media-3" src="../assets/unbecoming3.jpg" class="stack-item vivid" style="opacity: 1;">
 
         <div id="media-4" class="stack-item video-wrapper">
-            <video autoplay muted loop playsinline src="../assets/unbecoming.mp4"></video>
+            <video muted playsinline src="../assets/unbecoming.mp4"></video>
         </div>
 
         <div id="media-5" class="stack-item vimeo-wrapper">
-            <iframe src="https://player.vimeo.com/video/910109046?autoplay=1&muted=1&loop=1&background=1" 
+            <iframe src="https://player.vimeo.com/video/910109046?autoplay=1&muted=1&loop=0&background=1" 
                     frameborder="0" allow="autoplay; fullscreen"></iframe>
         </div>
     </div>
 </section>
     </main>
 
-<script>
-    const items = document.querySelectorAll('.stack-item');
-    const links = document.querySelectorAll('.fragment-link');
-
-    links.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            const targetIds = link.getAttribute('data-target').split(',');
-            
-            items.forEach(i => {
-                if (!targetIds.includes(i.id) && !i.classList.contains('pinned')) {
-                    i.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
-                    i.style.opacity = "0.2"; 
-                    if (i.timer) clearTimeout(i.timer);
-                }
-            });
-
-            targetIds.forEach((id, index) => {
-                const el = document.getElementById(id.trim());
-                if (el) {
-                    el.classList.add('vivid');
-                    el.style.opacity = "1";
-
-                    if (targetIds.length > 1) {
-                        el.classList.add(index === 0 ? 'as-pair-1' : 'as-pair-2');
-                    } else {
-                        const ox = Math.floor(Math.random() * 40) - 20;
-                        const oy = Math.floor(Math.random() * 40) - 20;
-                        el.style.transform = `translate(${ox}px, ${oy}px)`;
-                    }
-
-                    if (el.timer) clearTimeout(el.timer);
-                    el.timer = setTimeout(() => {
-                        if (!el.classList.contains('pinned')) {
-                            el.classList.remove('vivid', 'as-pair-1', 'as-pair-2');
-                            el.style.opacity = "0";
-                        }
-                    }, 10000);
-                }
-            });
-        });
-
-        link.addEventListener('click', (e) => {
-            const targetIds = link.getAttribute('data-target').split(',');
-            targetIds.forEach(id => {
-                const el = document.getElementById(id.trim());
-                if (el) {
-                    el.classList.toggle('pinned');
-                    el.style.opacity = "1";
-                    el.style.zIndex = el.classList.contains('pinned') ? "500" : "150";
-                }
-            });
-        });
-    });
-</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="slideshow.js"></script>
 </body>
 </html>

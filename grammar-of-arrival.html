@@ -20,6 +20,15 @@
         .grammar-page .exhibition-history p:last-child {
             margin-bottom: 0;
         }
+        /* Each photo sits a few millimetres off the others, with the same
+           soft shadow as the images on the other project pages. */
+        .grammar-page .stack-item {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        #grammar-1 { transform: translate(0, 0); }
+        #grammar-2 { transform: translate(9px, -7px); }
+        #grammar-3 { transform: translate(-9px, 7px); }
+        #grammar-4 { transform: translate(7px, 9px); }
     </style>
 </head>
 
@@ -61,7 +70,7 @@
 </section>
 
 <section class="display-area" id="discovery-zone">
-    <div class="stack-container">
+    <div class="stack-container" data-steps="grammar-1;grammar-2;grammar-3;grammar-4">
         <img id="grammar-1" src="assets/grammar-fullexp.jpg" class="stack-item vivid" style="opacity: 1;">
         <img id="grammar-2" src="assets/grammar-people.jpg" class="stack-item">
         <img id="grammar-3" src="assets/grammar-person.jpg" class="stack-item">
@@ -70,25 +79,6 @@
 </section>
     </main>
 
-<script>
-    // Hovering the image cycles to the next one in the set.
-    const items = Array.from(document.querySelectorAll('.stack-item'));
-    const displayArea = document.getElementById('discovery-zone');
-    let current = items.findIndex(i => i.classList.contains('vivid'));
-
-    displayArea.addEventListener('mouseenter', () => {
-        const next = (current + 1) % items.length;
-        const from = items[current];
-        const to = items[next];
-
-        from.classList.remove('vivid');
-        from.style.opacity = '0';
-
-        to.classList.add('vivid');
-        to.style.opacity = '1';
-
-        current = next;
-    });
-</script>
+<script src="slideshow.js"></script>
 </body>
 </html>

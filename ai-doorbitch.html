@@ -48,11 +48,11 @@
         </section>
 
         <section class="display-area" id="discovery-zone">
-            <div class="stack-container">
+            <div class="stack-container" data-steps="media-10;media-12">
                 <img id="media-10" src="../assets/arttechtour.jpg" class="stack-item vivid" style="opacity: 1; max-height: 55vh !important;">
                 <div id="media-12" class="stack-item vimeo-wrapper-horizontal">
                     <iframe 
-                        src="https://player.vimeo.com/video/460593455?h=a5f113e6e3&amp;autoplay=1&amp;background=1&amp;muted=1&amp;loop=1" 
+                        src="https://player.vimeo.com/video/460593455?h=a5f113e6e3&amp;autoplay=1&amp;background=1&amp;muted=1&amp;loop=0" 
                         frameborder="0" 
                         allow="autoplay; fullscreen; picture-in-picture" 
                         style="width:100%; height:100%;" 
@@ -63,54 +63,7 @@
         </section>
     </main>
 
-    <script>
-        // Use the same JavaScript logic as your other pages for consistent behavior
-        const items = document.querySelectorAll('.stack-item');
-        const links = document.querySelectorAll('.fragment-link');
-
-        links.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                const targetIds = link.getAttribute('data-target').split(',');
-                items.forEach(i => {
-                    if (!targetIds.includes(i.id) && !i.classList.contains('pinned')) {
-                        i.classList.remove('vivid');
-                        i.style.opacity = "0.3"; 
-                        if (i.timer) clearTimeout(i.timer);
-                    }
-                });
-
-                targetIds.forEach(id => {
-                    const el = document.getElementById(id.trim());
-                    if (el) {
-                        el.classList.add('vivid');
-                        el.style.opacity = "1";
-                        const ox = Math.floor(Math.random() * 40) - 20;
-                        const oy = Math.floor(Math.random() * 40) - 20;
-                        el.style.transform = `translate(${ox}px, ${oy}px)`;
-
-                        if (el.timer) clearTimeout(el.timer);
-                        el.timer = setTimeout(() => {
-                            if (!el.classList.contains('pinned')) {
-                                el.classList.remove('vivid');
-                                el.style.opacity = "0";
-                            }
-                        }, 8000);
-                    }
-                });
-            });
-
-            link.addEventListener('click', () => {
-                const targetIds = link.getAttribute('data-target').split(',');
-                targetIds.forEach(id => {
-                    const el = document.getElementById(id.trim());
-                    if (el) {
-                        el.classList.toggle('pinned');
-                        el.style.zIndex = el.classList.contains('pinned') ? "500" : "150";
-                        el.style.opacity = "1";
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script src="slideshow.js"></script>
 </body>
 </html>

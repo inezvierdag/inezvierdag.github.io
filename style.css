@@ -310,22 +310,18 @@ body.project-page {
 
     opacity: 0;
     filter: blur(10px);
+    scale: 1.03;
     pointer-events: none;
 
-    transition:
-        opacity 2s cubic-bezier(0.25, 1, 0.5, 1), 
-        filter 1s cubic-bezier(0.25, 1, 0.5, 1), 
-        transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: opacity 3.5s ease-in-out, filter 3s ease-in-out, transform 1.5s ease, scale 7s ease-out;
 }
 /* ACTIVE STATE: Forced solid */
 .stack-item.vivid {
     filter: blur(0px);
+    scale: 1;
     z-index: 150;
     opacity: 1 !important;
-transition:
-        opacity 2s cubic-bezier(0.25, 1, 0.5, 1),
-        filter 1s cubic-bezier(0.25, 1, 0.5, 1),
-        transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: opacity 3.5s ease-in-out, filter 3s ease-in-out, transform 1.5s ease, scale 7s ease-out;
 }
 
 /* PINNED STATE: Forced solid and interactive */
@@ -358,10 +354,7 @@ transition:
 
 /* --- OPTIONAL: ADJUSTING THE SCATTER RADIUS --- */
 #media-4.vivid {
-transition: 
-        opacity 2s cubic-bezier(0.25, 1, 0.5, 1), 
-        filter 1s cubic-bezier(0.25, 1, 0.5, 1), 
-        transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: opacity 3.5s ease-in-out, filter 3s ease-in-out, transform 1.5s ease, scale 7s ease-out;
 }
 /* --- VIMEO: 9:16 CROP & VISIBILITY --- */
 
@@ -420,10 +413,7 @@ transition:
     filter: blur(25px);
     pointer-events: none; 
     
-    transition: 
-        opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-        filter 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-        transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: opacity 3.5s ease-in-out, filter 3s ease-in-out, transform 1.5s ease, scale 7s ease-out;
 }
 
 /* 2. THE VISIBLE STATE (When hovered) */
@@ -684,6 +674,12 @@ body.project-page .text-column {
     /* Take inactive items out. */
     .stack-item:not(.vivid):not(.pinned) {
         display: none;
+    }
+
+    /* Pair steps stack vertically on phones instead of sitting side by side. */
+    .stack-item.as-pair-1,
+    .stack-item.as-pair-2 {
+        transform: none !important;
     }
 
     .vimeo-wrapper iframe,
